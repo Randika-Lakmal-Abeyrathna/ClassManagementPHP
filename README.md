@@ -1,1 +1,1 @@
-# ClassManagementPHP
+# Class Management System PHP
