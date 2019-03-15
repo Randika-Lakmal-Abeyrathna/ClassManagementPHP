@@ -6,21 +6,63 @@ and open the template in the editor.
 -->
 
 <?php
+
 session_start();
 $errormsg = NULL;
 
+
+//$dbConnection =getDBConnection();
 if (isset($_POST['login']) && !empty($_POST['userName']) && !empty($_POST['password'])) {
 
-    if ($_POST['username'] == 'tutorialspoint' &&
-            $_POST['password'] == '1234') {
-        $_SESSION['valid'] = true;
-        $_SESSION['timeout'] = time();
-        $_SESSION['username'] = 'tutorialspoint';
 
-        $errormsg = 'You have entered valid use name and password';
-    } else {
-        $errormsg = 'Wrong username or password';
-    }
+    $servername = "localhost";
+$dbusername = "randika";
+$dbpassword = "Admin@123";
+$dbname = "mydb";
+
+// Create connection
+$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+
+$sql = "select * FROM login";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+while($row = $result->fetch_assoc()) {
+    print_r( $row["usertype_idusertype"]);
+}
+
+}
+$conn->close();
+//    
+////    $getUserDataQuery = "select * FROM login WHERE username ='".$username."' and password='".$password."'";
+//    $getUserDataQuery = "select * FROM login ";
+//    $results = $conn->query($getUserDataQuery);
+//    
+//    if ($result->num_rows > 0) {
+//        while($row = $result->fetch_assoc()){
+//            print_r("in");
+//            print_r( $row["usertype_idusertype"]);
+//        }
+//    }else{
+//        print_r("no data");
+//    }
+    
+//    if ($_POST['userName'] == 'tutorialspoint' &&
+//            $_POST['password'] == '1234') {
+//        $_SESSION['valid'] = true;
+//        $_SESSION['timeout'] = time();
+//        $_SESSION['username'] = 'tutorialspoint';
+//
+//        $errormsg = 'You have entered valid use name and password';
+//    } else {
+//        $errormsg = 'Wrong username or password';
+//    }
 }
 ?>
 
@@ -30,9 +72,8 @@ if (isset($_POST['login']) && !empty($_POST['userName']) && !empty($_POST['passw
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Login</title>
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
         <!--Scripts-->
-        <script src="bootstrap/js/jquery-1.11.3.min.js"></script>
+        <script src="bootstrap/js/jquery-1.11.3.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
 
 
