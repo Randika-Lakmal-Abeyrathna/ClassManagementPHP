@@ -22,21 +22,20 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-function getStudents($conn) {
+function getLectures($conn) {
     $data = '';
-    $getStudentDataQuery = "SELECT stu_id,firstname,lastname,nic,mobile FROM student";
+    $getStudentDataQuery = "SELECT lec_id,name,nic,mobile FROM lecturer";
 
     $result = $conn->query($getStudentDataQuery);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $data = $data . '<tr>'
-                    . '<td>' . $row['stu_id'] . '</td>'
-                    . '<td>' . $row['firstname'] . '</td>'
-                    . '<td>' . $row['lastname'] . '</td>'
+                    . '<td>' . $row['lec_id'] . '</td>'
+                    . '<td>' . $row['name'] . '</td>'
                     . '<td>' . $row['nic'] . '</td>'
                     . '<td>' . $row['mobile'] . '</td>'
-                    . '<td><a class="btn btn-secondary" href="editStudent.php?id=' . $row['stu_id'] . '">Edit Details</a></td>'
-                    . '<td><a class="btn btn-danger" href="deleteStudent.php?id=' . $row['stu_id'] . '">Delete</a></td>'
+                    . '<td><a class="btn btn-secondary" href="editLecture.php?id=' . $row['lec_id'] . '">Edit Details</a></td>'
+                    . '<td><a class="btn btn-danger" href="deleteLecture.php?id=' . $row['lec_id'] . '">Delete</a></td>'
                     . '</tr>';
         }
     }
@@ -45,23 +44,23 @@ function getStudents($conn) {
 
 ?>
 
+
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Students</title>
+        <title>Lectures</title>
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
         <!--Scripts-->
         <script src="bootstrap/js/jquery-1.11.3.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
-
-        <div class="container-fluid"> 
+       <div class="container-fluid"> 
 
             <div class="row">
 
-                <h4> Student Details</h4>
+                <h4> Lectures Details</h4>
             </div>
 
             <div class="row">
@@ -70,9 +69,8 @@ function getStudents($conn) {
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
+                               <th scope="col">#</th>
+                                <th scope="col">Name</th>
                                 <th scope="col">NIC</th>
                                 <th scope="col">Mobile</th>
                                 <th scope="col">Edit Details</th>
@@ -80,23 +78,18 @@ function getStudents($conn) {
                             </tr>
                         </thead>
                         <tbody>
-<?php
-print_r(getStudents($conn));
+                           <?php
+print_r(getLectures($conn));
 ?>
                         </tbody>
                     </table>
                 </div>
                 <div class="col-auto">
-                    <a class="btn btn-primary" href="studentRegistration.php">New Student</a>
-                     <a class="btn btn-warning" href="adminPage.php">Back</a>
+                    <a class="btn btn-primary" href="lectureRegistration.php">New Lecture</a>
+                    <a class="btn btn-warning" href="adminPage.php">Back</a>
                 </div>
 
             </div>
         </div>
-
-        
-
-        
-    </div>
-</body>
+    </body>
 </html>

@@ -10,8 +10,6 @@ and open the template in the editor.
 session_start();
 $errormsg = NULL;
 
-
-//$dbConnection =getDBConnection();
 if (isset($_POST['login']) && !empty($_POST['userName']) && !empty($_POST['password'])) {
 
 
@@ -21,11 +19,6 @@ $dbpassword = "Admin@123";
 $dbname = "mydb";
 
 
-$loginUserName = $_POST['userName'];
-$loginPassword = $_POST['password'];
-
-$encriptPassword = md5($loginPassword);
-
 // Create connection
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 // Check connection
@@ -34,13 +27,18 @@ if ($conn->connect_error) {
 } 
 
 
+$loginUserName = $_POST['userName'];
+$loginPassword = $_POST['password'];
+
+$encriptPassword = md5($loginPassword);
+
 $loginDataQuery = "SELECT usertype_idusertype FROM login WHERE username='".$loginUserName."' and password ='$loginPassword'";
 $result = $conn->query($loginDataQuery);
 
 if ($result->num_rows > 0) {
     // output data of each row
 while($row = $result->fetch_assoc()) {
-    print_r( $row["usertype_idusertype"]);
+//    print_r( $row["usertype_idusertype"]);
 
     $userTypeDataQuery = "SELECT type FROM usertype WHERE idusertype='".$row['usertype_idusertype']."'";
     
@@ -53,9 +51,11 @@ while($row = $result->fetch_assoc()) {
                 $_SESSION['username'] = $loginUserName;
                 header('Location:adminPage.php');
             }else if ($userTypeRow['type'] === 'lecture') {
-                
+                $_SESSION['username'] = $loginUserName;
+                header('Location:lecture.php');
             }else if ($userTypeRow['type'] === 'student') {
-                
+                $_SESSION['username'] = $loginUserName;
+                header('Location:studentPage.php');
             }
             
         }

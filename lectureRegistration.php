@@ -22,18 +22,17 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-if (isset($_POST['saveStudent'])) {
+if (isset($_POST['saveLecture'])) {
 
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
+    $name = $_POST['name'];
     $nic = $_POST['nic'];
     $mobile = $_POST['mobile'];
 
 
-    $insertStudentQuery = "INSERT INTO student(firstname,lastname,nic,mobile) VALUES('$firstName','$lastName','$nic','$mobile') ";
+    $insertLectureQuery = "INSERT INTO lecturer(name,nic,mobile) VALUES('$name','$nic','$mobile') ";
 
-    if ($conn->query($insertStudentQuery) === TRUE) {
-         header('Location:students.php');
+    if ($conn->query($insertLectureQuery) === TRUE) {
+         header('Location:lectures.php');
 
     }
 }
@@ -43,7 +42,7 @@ if (isset($_POST['saveStudent'])) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Student Registration</title>
+        <title>Lecture Registration</title>
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
         <!--Scripts-->
@@ -54,26 +53,23 @@ if (isset($_POST['saveStudent'])) {
 
         <div class="container-fluid">
             <div class="row">
-                <h2>Student Registration</h2>
+                <h2>Lecture Registration</h2>
             </div>
-            <form action="studentRegistration.php" method="post">
+            <form action="lectureRegistration.php" method="post">
 
                 <div class="row">
                     <div class="col-md-6 offset-3">
                         <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="firstName">First Name</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required/>
+                            <div class="form-group col-md-12">
+                                <label for="firstName">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Name" required="true"/>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name"/>
-                            </div>
+                            
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="nic">NIC</label>
-                                <input type="text" class="form-control" id="nic" name="nic" placeholder="Nic" required/>
+                                <input type="text" class="form-control" id="nic" name="nic" placeholder="Nic" required="true"/>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="mobile">Mobile</label>
@@ -83,10 +79,10 @@ if (isset($_POST['saveStudent'])) {
                         <div class="row">
                             <div class="col-md-6 float-left">
 
-                                <a class="btn btn-secondary" href="students.php">Back</a>
+                                <a class="btn btn-secondary" href="lectures.php">Back</a>
                             </div>
                             <div class="col-md-auto float-right">
-                                <button type="submit" name="saveStudent" class="btn btn-primary ">Save</button>
+                                <button type="submit" name="saveLecture" class="btn btn-primary ">Save</button>
                             </div>
                         </div>
                     </div>
